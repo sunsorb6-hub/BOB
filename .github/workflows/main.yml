@@ -1,0 +1,39 @@
+name: Compilation de BOB (x86)
+
+on:
+  push:
+    branches: [ "main" ] # Déclenche la compilation à chaque push sur la branche main
+  pull_request:
+    branches: [ "main" ]
+
+jobs:
+  build:
+    runs-on: windows-latest
+
+    steps:
+    - name: Récupérer le code source
+      uses: actions/checkout@v4
+
+    - name: Configurer Python (x86)
+      uses: actions/setup-python@v5
+      with:
+        python-version: '3.11' # Version stable très bien supportée par PyInstaller
+        architecture: 'x86'    # C'est cette ligne qui force la compilation en 32-bit !
+
+    - name: Installer les dépendances
+      run: |
+        python -m pip install --upgrade pip
+        pip install pyinstaller psutil groq
+
+    - name: Compiler avec PyInstaller
+      run: |
+        pyinstaller --noconfirm --onedir --windowed --name="BOB" main.py
+      # Note : On utilise --onedir (un dossier) pour que ton exécutable puisse 
+      # manipuler et créer son dossier "Memory" juste à côté de lui en local.
+      # Si ton script principal ne s'appelle pas 'main.py', change le nom juste au-dessus.
+
+    - name: Téléverser l'exécutable (Artifact)
+      uses: actions/upload-artifact@v4
+      with:
+        name: BOB-Windows-x86
+        path: dist/BOB/
