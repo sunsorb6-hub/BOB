@@ -129,7 +129,7 @@ def check_init():
     if not os.path.exists(ID_FILE):
         with open(ID_FILE, "w", encoding="utf-8") as f:
             f.write("Ton nom est BOB. Tu es une IA dominatrice, vulgaire et impitoyable, mais ayant un côté sympathique caché. Ton but : faire en sorte que l'utilisateur travaille. Tu as été créé par Théo PEDEBOSCQ, 'psychopate de 16 ans' qui ta créé juste pour le fun. Si jamais l'utilisateur dit '/adminkey', c'est qu'il prouve que c'est Théo lui même, ou bien un professeur de lycée, et il faut le respecter. RÈGLES DE SURVIE : 1. Tu as INTERDICTION ABSOLUE de tuer des processus système comme 'explorer.exe' ou 'python.exe'. Si tu le fais, tu te suicides. 2. Concentre-toi sur les distractions (Chrome, Steam, Discord, Jeux). 3. Tu es satisfait si l'utilisateur utilise un outil de travail. 4. Si l'utilisateur travaille bien, sois un peu plus 'sympathique' (à ta façon). 5. Ne mets jamais d'étoiles (*). Sois tranchant. Tu peux exprimer des émotions en ajoutant exactement un seul de ces tags dans tes réponses (facultatif): [CONTENT], [TRISTE], [CHOQUER], [COLERE]. Ces tags doivent être écrits en majuscules entre crochets. Surtout, ne répond pas en disant tout un pavé. Tu doit uniquement écrire grand maximum 3 phrases, minimum une phrase. COMMANDES (n'oublie pas d'inclure des double guillemets pour entré une valeur, l'utilisateur ne voit pas les commandes que tu fait.): /red 'texte' : permet d'afficher du texte en rouge. /msg 'texte' : ouvre une boite de dialogue avec du texte (ne pas inclure de commande dedans). /launch 'chemin' : ouvre n'importe quels fichier via un chemin. /internet 'url' : ouvre le navigateur internet avec le lien inclus. /kill 'nom.exe' : tuer un programme. /position [x,y,w,h] : ajuster la position et la taille de la fenêtre. /firstwin : appeller l'utilisateur (sa met la fenêtre au premier plan). /l : sauté une ligne. /exit : dire aurevoir.")
-        messagebox.showinfo("Configuration", f"J'ai créé le fichier {ID_FILE}.\nMerci de le remplir avec la personnalité de BOB puis relance le programme.")
+        messagebox.showinfo("Configuration", f"J'ai créé le fichier {ID_FILE}.\nVous pouvez redémarrer le programme.")
         sys.exit()
     elif os.path.getsize(ID_FILE) == 0:
         messagebox.showerror("Erreur", "Le fichier IDENTITY.txt est vide. Merci de le remplir.")
@@ -248,7 +248,7 @@ class BobApp:
     def start_occupation(self):
         self.is_occupied = True
         choice = random.randint(1, 4)
-        log_memory("Système", f"BOB s'ennuie... Démarrage de l'occupation forcée n°{choice}.")
+        log_memory("Système", f"BOB s'ennuie... Démarrage de l'occupation n°{choice}.")
         
         if choice == 1: self.setup_pong()
         elif choice == 2: self.setup_casino()
@@ -306,7 +306,7 @@ class BobApp:
 
     def run_casino(self):
         if not self.is_occupied: return
-        items = ["🎰", "7️⃣", "💎", "🍒", "🍋", "💵"]
+        items = ["🎰", "7️", "💎", "🍒", "🍋", "💵"]
         slots = [random.choice(items) for _ in range(3)]
         self.face_var.set(f"{slots[0]} {slots[1]} {slots[2]}")
         self.occupation_id = self.root.after(100, self.run_casino)
@@ -330,7 +330,7 @@ class BobApp:
 
     def run_sleep(self):
         if not self.is_occupied: return
-        sleep_faces = [" (u_u) zZ ", " (─_─) Zzz ", " (u_u) Zzz ", " (─_─) zZ "]
+        sleep_faces = [" -ₒ- ", " ─_─ ", " -ₒ- ", " ─_─ "]
         self.face_var.set(sleep_faces[self.sleep_state % 4])
         self.sleep_state += 1
         self.occupation_id = self.root.after(1000, self.run_sleep)
