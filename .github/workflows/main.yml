@@ -36,4 +36,4 @@ jobs:
       uses: actions/upload-artifact@v4
       with:
         name: BOB-Windows-x86
-        path: dist/BOB/
+        path: dist/BOB.exe
