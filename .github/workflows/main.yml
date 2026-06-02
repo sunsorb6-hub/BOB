@@ -27,7 +27,7 @@ jobs:
 
     - name: Compiler avec PyInstaller
       run: |
-        pyinstaller --noconfirm --onedir --windowed --name="BOB" main.py
+        pyinstaller --noconfirm --onedir --windowed --name="BOB" engine.py
       # Note : On utilise --onedir (un dossier) pour que ton exécutable puisse 
       # manipuler et créer son dossier "Memory" juste à côté de lui en local.
       # Si ton script principal ne s'appelle pas 'main.py', change le nom juste au-dessus.
